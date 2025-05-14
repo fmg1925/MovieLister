@@ -52,6 +52,9 @@ Este es un proyecto web desarrollado en **Ruby on Rails** que permite explorar u
     ```
 
 5. **Agregar API Key y Token de TMDb:**
+
+    Crea un archivo **.env** y agrega:
+
     ```env
     API_KEY=TU_KEY_AQUÍ
     TOKEN=TU_TOKEN_AQUÍ
