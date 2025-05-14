@@ -1,0 +1,19 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag :users, "data-turbo-track": "reload" %>
+<% end %>
+<h1>All Users</h1>
+
+<table>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.username %></td>
+      <td><%= button_to 'Eliminar',
+      user_path(user),
+      method: :delete,
+      data: {
+        controller: "confirm",
+        action: "confirm#confirm",
+      } %></td>
+      </tr>
+  <% end %>
+</table>

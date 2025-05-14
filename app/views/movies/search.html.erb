@@ -1,0 +1,42 @@
+<% content_for :stylesheets do %>
+  <%= stylesheet_link_tag :movies, "data-turbo-track": "reload" %>
+<% end %>
+<h2>Buscar películas</h2>
+
+<%= form_with url: search_movies_path, method: :get, local: true do %>
+  <%= label_tag :query, "Movie title:" %>
+  <%= text_field_tag :query.to_s.strip, params[:query].to_s.strip, id: "movie-search-textbox" %>
+  <%= submit_tag "Search", id: "movie-search-button" %>
+<% end %>
+
+<% if @movies.present? %>
+  <div id="movies-container">
+    <% @movies.each do |movie| %>
+      <div class="movie">
+        <div class="movie-left">
+          <%= image_tag("https://image.tmdb.org/t/p/w500#{movie['poster_path']}", class: "movie-poster") if movie['poster_path'] %>
+          <div class="movie-rating">
+            <% rating = (movie['vote_average'] / 2.0).round(1) %>
+            <% 5.times do |i| %>
+              <% if rating >= i + 1 %>
+                <i class="fa-solid fa-star"></i>
+              <% elsif rating >= i + 0.5 %>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              <% else %>
+                <i class="fa-regular fa-star"></i>
+              <% end %>
+            <% end %>
+            <span class="rating-score"><%= rating %> (<%= movie['vote_count'] %> Ratings)</span>
+          </div>
+        </div>
+        <div class="movie-details">
+          <strong><%= movie['title'] %></strong><br>
+          <%= movie['overview'] %><br>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% elsif params[:query].present? %>
+  <p>No results found.</p>
+<% end %>
+<%= javascript_include_tag "movie_search", "data-turbo-track": "reload", defer: true %>

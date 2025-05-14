@@ -1,0 +1,41 @@
+.movie {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.movie-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movie-poster {
+  width: 150px;
+  border-radius: 8px;
+  display: block;
+}
+
+.movie-rating {
+  margin-top: 8px;
+  font-size: 18px;
+  color: #ccc;
+  text-align: center;
+}
+
+.rating-placeholder {
+  display: block;
+  font-size: 14px;
+  color: #999;
+}
+
+.movie-details {
+  max-width: 600px;
+}
+
+#movie-search-textbox, #movie-search-button {
+  color: black;
+  margin-bottom: 20px;
+}
+
