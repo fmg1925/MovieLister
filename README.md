@@ -30,22 +30,36 @@ Este es un proyecto web desarrollado en **Ruby on Rails** que permite explorar u
     bundle install
     ```
 
-3. **Configurar la base de datos:**
+3. **Configura el archivo `config/database.yml`:**
+
+    Copia el archivo de ejemplo:
+    ```bash
+    cp config/database.example.yml config/database.yml
+    ```
+
+    **Edita las siguientes líneas con tus credenciales si es necesario:**
+    ```yml
+    username: postgres
+    password: password
+    host: localhost
+    ```
+
+4. **Configurar la base de datos:**
     ```bash
     rails db:create
     rails db:migrate
     rails db:seed # Para generar usuarios de prueba
     ```
 
-4. **Agregar API Key y Token de TMDb:**
+5. **Agregar API Key y Token de TMDb:**
     ```env
     API_KEY=TU_KEY_AQUÍ
     TOKEN=TU_TOKEN_AQUÍ
     ```
 
-5. **Iniciar el servidor:**
+6. **Iniciar el servidor:**
     ```bash
     rails server
     ```
 
-6. **Visita `http://localhost:3000` en tu navegador.**
+7. **Visita `http://localhost:3000` en tu navegador.**
