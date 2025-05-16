@@ -4,9 +4,9 @@
 <% end %>
 <h2><%= t("movies.search") %></h2>
 
-<%= form_with url: search_movies_path, method: :get, local: true do %>
+<%= form_with url: url_for(only_path: true, params: request.query_parameters), method: :get, local: true do %>
   <%= label_tag :query, t("movies.namesearch") %>
-  <%= text_field_tag :query.to_s.strip, params[:query].to_s.strip, id: "movie-search-textbox" %>
+  <%= text_field_tag :query, params[:query].to_s.strip, id: "movie-search-textbox" %>
   <%= submit_tag t("search"), id: "movie-search-button" %>
 <% end %>
 

@@ -54,6 +54,7 @@ class MoviesController < ApplicationController
     api_key = ENV["API_KEY"]
     auth_token = ENV["TOKEN"]
 
+    I18n.locale = params[:locale] || extract_locale_from_referer || :en
     language = case I18n.locale
     when :es then "es-MX"
     when :en then "en-US"
@@ -92,5 +93,15 @@ class MoviesController < ApplicationController
       @total_pages = 0
       @current_page = 0
     end
+  end
+
+  def extract_locale_from_referer
+  URI.parse(request.referer || "").query
+    &.split("&")
+    &.map { |p| p.split("=") }
+    &.to_h["locale"]
+    &.to_sym
+  rescue
+    nil
   end
 end

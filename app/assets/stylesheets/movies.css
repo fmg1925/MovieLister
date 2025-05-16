@@ -1,3 +1,7 @@
+#movies-container {
+  padding-left: 20px;
+}
+
 .movie {
   display: flex;
   flex-direction: row;
@@ -24,7 +28,6 @@
 .movie-rating {
   margin-top: 8px;
   font-size: 18px;
-  width: 180px;
   color: #ccc;
   text-align: center;
 }
