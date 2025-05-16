@@ -1,8 +1,8 @@
-<!-- app/views/movies/index.html.erb -->
-<% content_for :head do %>
+<!-- app/views/movies/index.html.erb --> <!-- Vista de películas populares -->
+<% content_for :stylesheets do %>
   <%= stylesheet_link_tag :movies, "data-turbo-track": "reload" %>
 <% end %>
-<h1>Popular Movies</h1>
+<h1><%= t("movies.popular") %></h1>
 
 <% if @movies.any? %>
   <div id="movies-container">
@@ -10,20 +10,35 @@
       <div class="movie">
         <div class="movie-left">
           <%= image_tag("https://image.tmdb.org/t/p/w500#{movie['poster_path']}", class: "movie-poster") if movie['poster_path'] %>
-          <div class="movie-rating">
-            <% rating = (movie['vote_average'] / 2.0).round(1) %>
-            <% 5.times do |i| %>
-              <% if rating >= i + 1 %>
-                <i class="fa-solid fa-star"></i>
-              <% elsif rating >= i + 0.5 %>
-                <i class="fa-solid fa-star-half-stroke"></i>
-              <% else %>
-                <i class="fa-regular fa-star"></i>
-              <% end %>
+          <div class="movie-rating" data-movie-id="<%= movie["id"] %>" vote-count="<%= movie['vote_count'] %>" vote-average="<%= movie['vote_average'] %>" ratings-text="<%= t('ratings') %>">
+            <% combined_rating = movie['combined_rating'] || 0 %>
+            <% user_rating = current_user&.ratings&.find_by(movie_api_id: movie['id'])&.score %>
+
+            <% 1.upto(5) do |i| %>
+              <% star_class =
+                  if user_rating
+                    i <= user_rating ? 'fa-solid' : 'fa-regular'
+                  else
+                    if combined_rating >= i
+                      'fa-solid'
+                    elsif combined_rating >= i - 0.5
+                      'fa-solid fa-star-half-stroke'
+                    else
+                      'fa-regular'
+                    end
+                  end
+              %>
+              <i class="fa-star <%= star_class %> star"
+                data-score="<%= i %>"
+                style="cursor:pointer; color: gold;"></i>
             <% end %>
-            <span class="rating-score"><%= rating %> (<%= movie['vote_count'] %> Ratings)</span>
+            <br>
+            <span class="rating-score">
+              <%= number_with_precision(combined_rating, precision: 1) %> / 5 (<%= movie['vote_count'] + movie['user_count'] %> <%= t("ratings") %>)
+            </span>
           </div>
         </div>
+
         <div class="movie-details">
           <strong><%= movie['title'] %></strong><br>
           <%= movie['overview'] %><br>
@@ -32,5 +47,19 @@
     <% end %>
   </div>
 <% else %>
-  <p>No movies available.</p>
+  <p><%= t("movies.nomovies") %></p>
 <% end %>
+
+<div class="pagination">
+  <% if @current_page > 1 %>
+    <%= link_to t("pagination.previous"), movies_path(page: @current_page - 1), class: "pagination-link" %>
+  <% end %>
+
+  <span><%= t("pagination.page") %> <%= @current_page %> / <%= @total_pages %></span>
+
+  <% if @current_page < @total_pages %>
+    <%= link_to t("pagination.next"), movies_path(page: @current_page + 1), class: "pagination-link" %>
+  <% end %>
+</div>
+
+<%= javascript_import_module_tag "ratings" %>

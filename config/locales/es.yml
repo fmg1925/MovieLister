@@ -1,0 +1,49 @@
+es:
+  welcome: "Bienvenido a MovieLister"
+  login:
+    title: "Iniciar Sesión"
+    username: "Nombre de usuario"
+    password: "Contraseña"
+    submit: "Iniciar Sesión"
+    error: "Usuario o contraseña incorrectos"
+    logout: "Cerrar Sesión"
+    registerTitle: "Registro"
+    register: "Registarse"
+    success: "¡Sesión iniciada!"
+    loggedout: "¡Sesión cerrada!"
+    confirmpassword: "Confirmar contraseña"
+  movies:
+    namesearch: "Nombre de la película:"
+    listing: "Listado de Películas"
+    search: "Buscar Películas"
+    popular: "Películas Populares"
+    nomovies: "No hay películas disponibles."
+    noresults: "No se encontraron resultados."
+  users:
+    list: "Listado de Usuarios"
+    create: "Crear Usuarios"
+    update: "Actualizar Usuario"
+    edit: "Editar Usuario"
+    created: "Usuario creado exitosamente."
+    edited: "Usuario editado exitosamente."
+    deleted: "Usuario eliminado exitosamente."
+    admin: "Administrador"
+    backtolisting: "Volver al listado de usuarios"
+  edit: "Editar"
+  delete: "Eliminar"
+  ratings: "Valoraciones"
+  pagination:
+    previous: "Anterior"
+    next: "Siguiente"
+    page: "Página"
+  search: "Buscar"
+  errors:
+    not_authorized: "No autorizado"
+    attributes:
+      username:
+        taken: "Nombre de usuario ya en uso."
+      password:
+        too_short: "La contraseña debe tener mínimo 8 carácteres."
+      password_confirmation:
+        confirmation: "Las contraseñas no coinciden"
+  confirmation: "¿Estás seguro?"

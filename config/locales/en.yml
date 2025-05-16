@@ -1,31 +1,50 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  welcome: "Welcome to MovieLister"
+  login:
+    title: "Login"
+    username: "Username"
+    password: "Password"
+    submit: "Sign In"
+    error: "Invalid username or password"
+    logout: "Logout"
+    registerTitle: "Register"
+    register: "Register"
+    success: "Logged in!"
+    loggedout: "Logged out!"
+    confirmpassword: "Password confirmation"
+  movies:
+    namesearch: "Movie name:"
+    listing: "Movies Listing"
+    search: "Movies Search"
+    popular: "Popular Movies"
+    nomovies: "No movies available."
+    noresults: "No results found."
+  users:
+    list: "Users Listing"
+    create: "Users Create"
+    update: "Update User"
+    edit: "Edit User"
+    created: "User created succesfully."
+    edited: "User edited succesfully."
+    deleted: "User deleted succesfully."
+    admin: "Administrator"
+    backtolisting: "Go back to user listing"
+  edit: "Edit"
+  delete: "Delete"
+  ratings: "Ratings"
+  pagination:
+    previous: "Previous"
+    next: "Next"
+    page: "Page"
+  search: "Search"
+  errors:
+    not_authorized: "Not authorized"
+    attributes:
+      username:
+        taken: "Username already taken."
+      password:
+        too_short: "Password must be at least 8 characters."
+      password_confirmation:
+        confirmation: "Password confirmation does not match."
+  confirmation: "Are you sure?"
+

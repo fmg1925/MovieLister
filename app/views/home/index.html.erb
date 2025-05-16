@@ -1,1 +1,10 @@
-<h2>Bienvenido a MovieLister</h2>
+<!-- app/views/home/index.html.erb --> <!-- Página principal -->
+<h2><%= t("welcome") %></h2>
+
+<% if logged_in? %>
+  Welcome <%= current_user.username %> |
+  <%= link_to t("login.logout"), logout_path, method: :get, class: "confirm" %>
+<% else %>
+  <%= link_to t("login.title"), login_path %>
+  <%= link_to t("login.register"), new_user_path%>
+<% end %>

@@ -5,7 +5,9 @@ Este es un proyecto web desarrollado en **Ruby on Rails** que permite explorar u
 ## Características
 
 - **Búsqueda de películas** mediante la API de TMDb.
-- **Gestión de usuarios** (base de datos local): crear y eliminar cuentas.
+- **Gestión de usuarios** (base de datos local): crear, editar y eliminar cuentas.
+- **Ratings de Películas** mediante la API de TMDb + Ratings de usuarios locales.
+- **Idiomas:** Interfaz y búsqueda disponibles en Español e Inglés.
 - **Estilos en modo oscuro.**
 - Interfaz clara y sencilla para la exploración del catálogo.
   

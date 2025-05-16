@@ -17,4 +17,6 @@ require 'faker'
   )
 end
 
+User.create!(username: "admin", password: "secret", password_confirmation: "secret", admin: true)
+
 puts "Created 100 users with Faker!"

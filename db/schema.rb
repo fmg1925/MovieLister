@@ -10,14 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_13_180205) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_16_015258) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "ratings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "movie_api_id"
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "admin"
   end
+
+  add_foreign_key "ratings", "users"
 end

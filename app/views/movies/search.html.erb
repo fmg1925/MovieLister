@@ -1,12 +1,13 @@
+<!-- app/views/movies/index.html.erb --> <!-- Vista para buscar películas -->
 <% content_for :stylesheets do %>
   <%= stylesheet_link_tag :movies, "data-turbo-track": "reload" %>
 <% end %>
-<h2>Buscar películas</h2>
+<h2><%= t("movies.search") %></h2>
 
 <%= form_with url: search_movies_path, method: :get, local: true do %>
-  <%= label_tag :query, "Movie title:" %>
+  <%= label_tag :query, t("movies.namesearch") %>
   <%= text_field_tag :query.to_s.strip, params[:query].to_s.strip, id: "movie-search-textbox" %>
-  <%= submit_tag "Search", id: "movie-search-button" %>
+  <%= submit_tag t("search"), id: "movie-search-button" %>
 <% end %>
 
 <% if @movies.present? %>
@@ -15,20 +16,35 @@
       <div class="movie">
         <div class="movie-left">
           <%= image_tag("https://image.tmdb.org/t/p/w500#{movie['poster_path']}", class: "movie-poster") if movie['poster_path'] %>
-          <div class="movie-rating">
-            <% rating = (movie['vote_average'] / 2.0).round(1) %>
-            <% 5.times do |i| %>
-              <% if rating >= i + 1 %>
-                <i class="fa-solid fa-star"></i>
-              <% elsif rating >= i + 0.5 %>
-                <i class="fa-solid fa-star-half-stroke"></i>
-              <% else %>
-                <i class="fa-regular fa-star"></i>
-              <% end %>
+          <div class="movie-rating" data-movie-id="<%= movie["id"] %>" vote-count="<%= movie['vote_count'] %>" vote-average="<%= movie['vote_average'] %>" ratings-text="<%= t('ratings') %>">
+            <% combined_rating = movie['combined_rating'] || 0 %>
+            <% user_rating = current_user&.ratings&.find_by(movie_api_id: movie['id'])&.score %>
+
+            <% 1.upto(5) do |i| %>
+              <% star_class =
+                  if user_rating
+                    i <= user_rating ? 'fa-solid' : 'fa-regular'
+                  else
+                    if combined_rating >= i
+                      'fa-solid'
+                    elsif combined_rating >= i - 0.5
+                      'fa-solid fa-star-half-stroke'
+                    else
+                      'fa-regular'
+                    end
+                  end
+              %>
+              <i class="fa-star <%= star_class %> star"
+                data-score="<%= i %>"
+                style="cursor:pointer; color: gold;"></i>
             <% end %>
-            <span class="rating-score"><%= rating %> (<%= movie['vote_count'] %> Ratings)</span>
+            <br>
+            <span class="rating-score">
+              <%= number_with_precision(combined_rating, precision: 1) %> / 5 (<%= (movie['vote_count'] || 0) + (movie['user_count'] || 0) %> <%= t("ratings") %>)
+            </span>
           </div>
         </div>
+
         <div class="movie-details">
           <strong><%= movie['title'] %></strong><br>
           <%= movie['overview'] %><br>
@@ -37,6 +53,23 @@
     <% end %>
   </div>
 <% elsif params[:query].present? %>
-  <p>No results found.</p>
+  <p><%= t("movies.noresults") %></p>
 <% end %>
+
+
+<div class="pagination">
+  <% if params[:query].present? && @movies.present? %>
+    <% if @current_page > 1 %>
+      <%= link_to t("pagination.previous"), search_movies_path(query: params[:query], page: @current_page - 1), class: "pagination-link" %>
+    <% end %>
+
+    <span><%= t("pagination.page") %> <%= @current_page %> / <%= @total_pages %></span>
+
+    <% if @current_page < @total_pages %>
+      <%= link_to t("pagination.next"), search_movies_path(query: params[:query], page: @current_page + 1), class: "pagination-link" %>
+    <% end %>
+  <% end %>
+</div>
+
 <%= javascript_include_tag "movie_search", "data-turbo-track": "reload", defer: true %>
+<%= javascript_import_module_tag "ratings" %>

@@ -1,7 +1,9 @@
 .movie {
   display: flex;
+  flex-direction: row;
   align-items: flex-start;
   margin-bottom: 20px;
+  width: 100%;
   gap: 20px;
 }
 
@@ -9,6 +11,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 150px; /* igual al ancho de la imagen */
+  flex-shrink: 0; /* para que no se achique */
 }
 
 .movie-poster {
@@ -20,22 +24,23 @@
 .movie-rating {
   margin-top: 8px;
   font-size: 18px;
+  width: 180px;
   color: #ccc;
   text-align: center;
 }
 
-.rating-placeholder {
-  display: block;
-  font-size: 14px;
-  color: #999;
-}
-
 .movie-details {
-  max-width: 600px;
+  flex-grow: 1; /* que ocupe el resto del espacio */
+  max-width: calc(100% - 170px); /* para que no se pase del contenedor */
 }
 
 #movie-search-textbox, #movie-search-button {
   color: black;
   margin-bottom: 20px;
 }
+
+.fa-star:hover, .fa-star-half-stroke:hover {
+  color: gold;
+  cursor: pointer;
+ }
 

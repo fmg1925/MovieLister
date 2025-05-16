@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_admin, only: [ :index, :destroy ]
   def index
     @users = User.all
   end
@@ -10,19 +11,37 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to users_path, notice: "User created succesfully."
+      session[:user_id] = @user.id
+      redirect_to home_path, notice: t("users.created")
     else
-      render :new
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      redirect_to users_path, notice: t("users.edited")
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    redirect_to users_path, notice: "User deleted succesfully."
+    redirect_to users_path, notice: t("users.deleted")
   end
 
+  private
+
   def user_params
-    params.require(:user).permit(:username, :password, :password_confirmation)
+    permitted = [ :username, :admin ]
+    permitted << :password << :password_confirmation if params[:user][:password].present?
+    params.require(:user).permit(permitted)
   end
 end
