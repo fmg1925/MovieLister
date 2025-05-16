@@ -12,12 +12,7 @@
       </td>
       <td>
         <%= button_to t("delete"),
-          user_path(user),
-          method: :delete,
-          data: {
-            controller: "confirm",
-            action: "confirm#confirm",
-          } %>
+          user_path(user), class: "confirm", method: :delete %>
       </td>
     </tr>
   <% end %>

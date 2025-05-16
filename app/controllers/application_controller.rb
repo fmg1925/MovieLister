@@ -31,6 +31,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    redirect_to login_path, alert: f("errors.not_authorized") unless admin?
+    redirect_to login_path, alert: t("errors.not_authorized") unless admin?
   end
 end

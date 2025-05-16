@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_16_015258) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_16_190257) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "cached_movies", force: :cascade do |t|
+    t.integer "movie_api_id"
+    t.string "title"
+    t.text "overview"
+    t.string "poster_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "language"
+    t.float "tmdb_vote_average"
+    t.integer "tmdb_vote_count"
+    t.datetime "cached_at"
+  end
 
   create_table "ratings", force: :cascade do |t|
     t.bigint "user_id", null: false

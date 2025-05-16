@@ -18,5 +18,7 @@ Rails.application.routes.draw do
 
   resources :ratings, only: [ :create ]
 
+  get "rated_movies", to: "movies#rated_movies"
+
   get "up" => "rails/health#show", as: :rails_health_check
 end

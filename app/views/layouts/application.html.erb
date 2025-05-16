@@ -24,12 +24,12 @@
   <body>
     <header>
       <%= link_to 'MovieLister', home_path, id: "title" %><br>
-      <%= link_to t("movies.listing"), movies_path, class: "header-links" %>
+      <%= link_to t("movies.popular"), movies_path, class: "header-links" %>
       <%= link_to t("movies.search"), search_movies_path, class: "header-links" %>
 
       <% if !logged_in? %>
-        <%= link_to t("login.title"), login_path, class: "header-links" %>
-        <%= link_to t("login.register"), new_user_path, class: "header-links" %>
+      <%= link_to t("login.title"), login_path, class: "header-links" %>
+      <%= link_to t("login.register"), new_user_path, class: "header-links" %>
       <% elsif logged_in? %>
         <%= link_to t("login.logout"), logout_path, class: "header-links confirm", data: { controller: "confirm", action: "confirm#confirm"} %>
       <% end %>
@@ -38,7 +38,6 @@
         <%= link_to t("users.list"), users_path, class: "header-links" %>
         <%= link_to t("users.create"), new_user_path, class: "header-links" %>
       <% end %>
-
       <%= form_with url: request.path, method: :get, local: true, html: { id: "language-dropdown" } do %> <!-- Dropdown para eligir idioma -->
         <%= select_tag :locale, options_for_select([["English", "en"], ["Español", "es"]], I18n.locale), onchange: "this.form.submit();" %>
       <% end %>

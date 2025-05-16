@@ -15,7 +15,7 @@
     <% @movies.each do |movie| %>
       <div class="movie">
         <div class="movie-left">
-          <%= image_tag("https://image.tmdb.org/t/p/w500#{movie['poster_path']}", class: "movie-poster") if movie['poster_path'] %>
+          <%= image_tag(movie['poster_path'] ? "https://image.tmdb.org/t/p/w500#{movie['poster_path']}" : asset_path('placeholder.png'), class: "movie-poster") %>
           <div class="movie-rating" data-movie-id="<%= movie["id"] %>" vote-count="<%= movie['vote_count'] %>" vote-average="<%= movie['vote_average'] %>" ratings-text="<%= t('ratings') %>">
             <% combined_rating = movie['combined_rating'] || 0 %>
             <% user_rating = current_user&.ratings&.find_by(movie_api_id: movie['id'])&.score %>

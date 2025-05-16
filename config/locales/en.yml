@@ -20,6 +20,7 @@ en:
     nomovies: "No movies available."
     noresults: "No results found."
   users:
+    welcome: "Welcome"
     list: "Users Listing"
     create: "Users Create"
     update: "Update User"
@@ -29,6 +30,11 @@ en:
     deleted: "User deleted succesfully."
     admin: "Administrator"
     backtolisting: "Go back to user listing"
+    ratedmovies: "Your rated movies:"
+    your_rating: "Your rating:"
+    combined_rating: "Combined rating:"
+    total_users: "Total users:"
+    no_ratings: "You haven't rated any movies yet."
   edit: "Edit"
   delete: "Delete"
   ratings: "Ratings"
@@ -47,4 +53,8 @@ en:
       password_confirmation:
         confirmation: "Password confirmation does not match."
   confirmation: "Are you sure?"
-
+  stars: "stars"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "La validación falló: %{errors}"

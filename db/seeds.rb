@@ -9,14 +9,19 @@
 #   end
 require 'faker'
 
-100.times do
+usernames = []
+
+10.times do
+  username = Faker::Internet.unique.username
+  usernames << username
+
   User.create!(
-    username: Faker::Internet.username,
-    password: "password",               # virtual
-    password_confirmation: "password"   # virtual
+    username: username,
+    password: "password",
+    password_confirmation: "password"
   )
 end
 
-User.create!(username: "admin", password: "secret", password_confirmation: "secret", admin: true)
+User.create!(username: "admin", password: "secret12", password_confirmation: "secret12", admin: true)
 
-puts "Created 100 users with Faker!"
+puts "Created 10 users with Faker!"
